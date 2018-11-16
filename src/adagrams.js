@@ -13,9 +13,9 @@ const Adagrams = {
       }
     });
 
+    // Select 10 random letters
     let hand = [];
     let used_rand_indexes = [];
-    // Select a 10 random letters
     for(let i = 0; i < 10; i += 1){
       let index = Math.floor(Math.random() * 99);
 
@@ -27,6 +27,34 @@ const Adagrams = {
       used_rand_indexes.push(index);
     }
     return hand;
+  },
+  usesAvailableLetters(input, lettersInHand){
+    // Create hash for lettersInHand
+    const hand_hash = {};
+    lettersInHand.forEach(function(letter){
+      // If letter is a key, increment value of key
+      if(letter in hand_hash){
+        hand_hash[letter] = parseInt(hand_hash[letter]) + 1;
+      }
+      else{
+        hand_hash[letter] = 1;
+      }
+    });
+
+    // Compare input letters to hand_hash
+    let input_array = input.split("");
+    input_array.forEach(function(letter){
+      // If letter is a key in the hash, decrament the value
+      if(letter in hand_hash){
+        hand_hash[letter] = parseInt(hand_hash[letter]) - 1;
+      }
+      else{
+        return false;
+      }
+    });
+
+    // Compare resulting values in hand_hash after comparison
+    
   }
 }
 
