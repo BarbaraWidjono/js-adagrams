@@ -40,28 +40,49 @@ const Adagrams = {
         hand_hash[letter] = 1;
       }
     });
-
+// return hand_hash;
     // Compare input letters to hand_hash
+    let input_letters_not_in_hand = [];
     let input_array = input.split("");
     input_array.forEach(function(letter){
       // If letter is a key in the hash, decrament the value
       if(letter in hand_hash){
-        hand_hash[letter] = parseInt(hand_hash[letter]) - 1;
+          hand_hash[letter] = parseInt(hand_hash[letter]) - 1;
       }
       else{
-        return false;
+        input_letters_not_in_hand.push(letter);
+      }
+    });
+// return hand_hash;
+// return input_letters_not_in_hand
+// return input_array;
+
+    if(input_letters_not_in_hand.length > 0){
+      return false;
+    }
+    // return hand_hash;
+    let input_letters_used_more_than_whats_in_hand = [];
+    Object.entries(hand_hash).forEach(entry => {
+      let letter = entry[0];
+      let times = entry[1];
+      if(times < 0){
+        input_letters_used_more_than_whats_in_hand.push(letter);
       }
     });
 
-    // Compare resulting values in hand_hash after comparison
-    
+    if(input_letters_used_more_than_whats_in_hand.length > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 }
 
 
 
 // Do not remove this line or your tests will break!
-export default Adagrams;
+// export default Adagrams;
 
 
-// console.log(Adagrams.drawLetters());
+console.log(Adagrams.usesAvailableLetters('DOG', ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']));
