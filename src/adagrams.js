@@ -82,7 +82,7 @@ const Adagrams = {
 
 
 // Do not remove this line or your tests will break!
-// export default Adagrams;
+export default Adagrams;
 
 
-console.log(Adagrams.usesAvailableLetters('DOG', ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']));
+// console.log(Adagrams.usesAvailableLetters('DOG', ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']));
