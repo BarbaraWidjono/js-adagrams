@@ -42,7 +42,7 @@ const Adagrams = {
 
     // Compare input letters to hand_hash
     let input_letters_not_in_hand = [];
-    let input_array = input.split("");
+    let input_array = input.toUpperCase().split("");
     input_array.forEach(function(letter){
       if(letter in hand_hash){
           hand_hash[letter] = parseInt(hand_hash[letter]) - 1;
@@ -71,6 +71,26 @@ const Adagrams = {
     else{
       return true;
     }
+  },
+
+  scoreWord(word){
+    let word_array = word.toUpperCase().split("");
+
+    if(word_array.length == 0){
+      return 0;
+    }
+
+    const points = {A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4, I:1, J:8, K:5, L:1, M:3, N:1, O:1, P:3, Q:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8, Y:4, Z:10};
+    let score = 0;
+    word_array.forEach(function(letter){
+      score += points[letter];
+    });
+
+    if(word_array.length >= 7){
+      score += 8;
+    }
+
+    return score;
   }
 }
 
