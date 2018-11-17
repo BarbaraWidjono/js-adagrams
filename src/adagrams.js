@@ -121,13 +121,15 @@ const Adagrams = {
         }
       });
     });
+// [ 'qq', 'qq' ]
+    if(winningWords.length == 1){
+      return {word: winningWords[0], score: highestScore}
+    }
+    else{
+      // Final tie breaking logic
+      return winningWords;
+    }
 
-
-
-
-
-    // Final tie breaking logic
-    return winningWords;
 
   },
 
