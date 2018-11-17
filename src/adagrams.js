@@ -1,4 +1,5 @@
 const Adagrams = {
+
   drawLetters() {
     const letters = {A:9, B:2, C:2, D:4, E:12, F:2, G:3, H:2, I:9, J:1, K:1, L:4, M:2, N:6, O:8, P:2, Q:1, R:6, S:4, T:6, U:4, V:2, W:2, X:1, Y:2, Z:1};
     let letters_pool = [];
@@ -28,6 +29,7 @@ const Adagrams = {
     }
     return hand;
   },
+
   usesAvailableLetters(input, lettersInHand){
     // Create hash for lettersInHand
     const hand_hash = {};
@@ -91,13 +93,32 @@ const Adagrams = {
     }
 
     return score;
+  },
+  // words = ['word1', 'word2', 'word3', 'word4']
+  highestScoreFrom(words){
+    // Initial winning word logic
+    let scoreHash = {};
+    words.forEach(function(element){
+      scoreHash[element] = Adagrams.scoreWord(element);
+    });
+
+    let pointsArray = words.map(x => Adagrams.scoreWord(x));
+    let highestScore = Math.max(...pointsArray);
+    let winningWord = Adagrams.getKeyByValue(scoreHash, highestScore);
+
+    // Final tie breaking logic
+    return winningWord;
+  },
+
+  getKeyByValue(object, value){
+    return Object.keys(object).find(key => object[key] === value);
   }
+  // return winning_word = {
+      //word: 'theWinningWord',
+      //score: 99
+  //}
 }
-
-
-
 // Do not remove this line or your tests will break!
-export default Adagrams;
-
-
-// console.log(Adagrams.usesAvailableLetters('DOG', ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']));
+// export default Adagrams;
+const test = ['aaa','ddd', 'bbb','q'];
+console.log(Adagrams.highestScoreFrom(test));

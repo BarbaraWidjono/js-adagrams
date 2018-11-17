@@ -99,7 +99,7 @@ describe('Adagrams', () => {
       expect(Adagrams.highestScoreFrom(words)).toEqual(correct);
     });
 
-    describe('in case of tied score', () => {
+    describe.skip('in case of tied score', () => {
       const expectTie = (words) => {
         const scores = words.map(Adagrams.scoreWord);
         const highScore = scores.reduce((h, s) => h < s ? s : h, 0);
