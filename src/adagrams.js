@@ -32,7 +32,6 @@ const Adagrams = {
     // Create hash for lettersInHand
     const hand_hash = {};
     lettersInHand.forEach(function(letter){
-      // If letter is a key, increment value of key
       if(letter in hand_hash){
         hand_hash[letter] = parseInt(hand_hash[letter]) + 1;
       }
@@ -40,12 +39,11 @@ const Adagrams = {
         hand_hash[letter] = 1;
       }
     });
-// return hand_hash;
+
     // Compare input letters to hand_hash
     let input_letters_not_in_hand = [];
     let input_array = input.split("");
     input_array.forEach(function(letter){
-      // If letter is a key in the hash, decrament the value
       if(letter in hand_hash){
           hand_hash[letter] = parseInt(hand_hash[letter]) - 1;
       }
@@ -53,14 +51,11 @@ const Adagrams = {
         input_letters_not_in_hand.push(letter);
       }
     });
-// return hand_hash;
-// return input_letters_not_in_hand
-// return input_array;
 
     if(input_letters_not_in_hand.length > 0){
       return false;
     }
-    // return hand_hash;
+
     let input_letters_used_more_than_whats_in_hand = [];
     Object.entries(hand_hash).forEach(entry => {
       let letter = entry[0];
