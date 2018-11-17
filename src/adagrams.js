@@ -97,28 +97,42 @@ const Adagrams = {
   // words = ['word1', 'word2', 'word3', 'word4']
   highestScoreFrom(words){
     // Initial winning word logic
-    let scoreHash = {};
+    let arrayScoreHashes = [];
+
     words.forEach(function(element){
+      let scoreHash = {};
       scoreHash[element] = Adagrams.scoreWord(element);
+      arrayScoreHashes.push(scoreHash);
     });
 
     let pointsArray = words.map(x => Adagrams.scoreWord(x));
     let highestScore = Math.max(...pointsArray);
-    let winningWord = Adagrams.getKeyByValue(scoreHash, highestScore);
+
+    // Count how many words in the arrayScoreHashes have the highestScore
+    let winningWords = [];
+
+    arrayScoreHashes.forEach(function(element){
+      Object.entries(element).forEach(entry => {
+        let word = entry[0];
+        let score = entry[1];
+
+        if(score == highestScore){
+          winningWords.push(word);
+        }
+      });
+    });
+
+
+
+
 
     // Final tie breaking logic
-    return winningWord;
+    return winningWords;
+
   },
 
-  getKeyByValue(object, value){
-    return Object.keys(object).find(key => object[key] === value);
-  }
-  // return winning_word = {
-      //word: 'theWinningWord',
-      //score: 99
-  //}
 }
 // Do not remove this line or your tests will break!
 // export default Adagrams;
-const test = ['aaa','ddd', 'bbb','q'];
+const test = ['aaa','ddd', 'bbb','qq', 'qq'];
 console.log(Adagrams.highestScoreFrom(test));
