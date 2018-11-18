@@ -140,21 +140,31 @@ const Adagrams = {
         }
       })
 
-      // If there a word in winningWords that is 10 letters long
+      // If there are words in winningWords that are 10 letters long
       if(lengthWinningWords.includes(10)){
+        let tenLetterWinningWords = [];
         winningWords.forEach(function(word){
           if(word.length == 10){
-            wordToReturn["word"] = word;
-            wordToReturn["score"] = highestScore;
+            tenLetterWinningWords.push(word);
           }
         });
+        // If there is a single 10 letter word with a highestScore
+        if(tenLetterWinningWords.length == 1){
+          wordToReturn["word"] = tenLetterWinningWords[0];
+          wordToReturn["score"] = highestScore;
+        }
+        // If there are more than one 10 letter word with a highestScore
+        else{
+          wordToReturn["word"] = tenLetterWinningWords[0];
+          wordToReturn["score"] = highestScore;
+        }
       }
       // Else if there is a single winning word of shortest length
       else if(winningWordsOfShortestLength.length == 1){
         wordToReturn["word"] = winningWordsOfShortestLength[0];
         wordToReturn["score"] = highestScore;
       }
-      // Else multiple winning words of shortest length
+      // Else multiple winning words of shortest length, take the first one
       else{
         wordToReturn["word"] = winningWordsOfShortestLength[0];
         wordToReturn["score"] = highestScore;
@@ -167,5 +177,3 @@ const Adagrams = {
 }
 // Do not remove this line or your tests will break!
 export default Adagrams;
-// const test = ['aaa','ddd', 'bbb', 'aaaaaaaaaa', 'zxz'];
-// console.log(Adagrams.highestScoreFrom(test));
