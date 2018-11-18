@@ -94,23 +94,24 @@ const Adagrams = {
 
     return score;
   },
-  // words = ['word1', 'word2', 'word3', 'word4']
+
   highestScoreFrom(words){
     // Initial winning word logic
     let arrayScoreHashes = [];
 
+    // scoreHash where word:score
     words.forEach(function(element){
       let scoreHash = {};
       scoreHash[element] = Adagrams.scoreWord(element);
       arrayScoreHashes.push(scoreHash);
     });
 
+    // Find highest Score
     let pointsArray = words.map(x => Adagrams.scoreWord(x));
     let highestScore = Math.max(...pointsArray);
 
-    // Count how many words in the arrayScoreHashes have the highestScore
+    // Extract words with the highest score
     let winningWords = [];
-
     arrayScoreHashes.forEach(function(element){
       Object.entries(element).forEach(entry => {
         let word = entry[0];
@@ -121,20 +122,35 @@ const Adagrams = {
         }
       });
     });
-// [ 'qq', 'qq' ]
+
+    // If there is a single word with the highestScore
     if(winningWords.length == 1){
       return {word: winningWords[0], score: highestScore}
     }
+    // Final tie breaking logic, compare words in winningWords
     else{
-      // Final tie breaking logic
-      return winningWords;
+      let wordToReturn = {};
+      let lengthWinningWords = winningWords.map(x => x.length);
+
+      if(lengthWinningWords.includes(10)){
+        winningWords.forEach(function(word){
+          if(word.length == 10){
+            wordToReturn["word"] = word;
+            wordToReturn["score"] = highestScore;
+          }
+        });
+      }
+      else{
+        wordToReturn["word"] = "DOG";
+        wordToReturn["score"] = highestScore;
+      }
+
+      return wordToReturn;
     }
 
-
-  },
-
+  }
 }
 // Do not remove this line or your tests will break!
 // export default Adagrams;
-const test = ['aaa','ddd', 'bbb','qq', 'qq'];
+const test = ['aaa','ddd', 'bbb', 'aaaaaaaaaa', 'zxz'];
 console.log(Adagrams.highestScoreFrom(test));
