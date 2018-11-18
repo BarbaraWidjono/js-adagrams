@@ -127,11 +127,20 @@ const Adagrams = {
     if(winningWords.length == 1){
       return {word: winningWords[0], score: highestScore}
     }
-    // Final tie breaking logic, compare words in winningWords
+    // Else there are multiple words with the highestScore
     else{
       let wordToReturn = {};
       let lengthWinningWords = winningWords.map(x => x.length);
+      let minLengthWinningWord = Math.min(...lengthWinningWords);
+      let winningWordsOfShortestLength = [];
 
+      winningWords.forEach(function(word){
+        if(word.length == minLengthWinningWord){
+          winningWordsOfShortestLength.push(word);
+        }
+      })
+
+      // If there a word in winningWords that is 10 letters long
       if(lengthWinningWords.includes(10)){
         winningWords.forEach(function(word){
           if(word.length == 10){
@@ -140,8 +149,14 @@ const Adagrams = {
           }
         });
       }
+      // Else if there is a single winning word of shortest length
+      else if(winningWordsOfShortestLength.length == 1){
+        wordToReturn["word"] = winningWordsOfShortestLength[0];
+        wordToReturn["score"] = highestScore;
+      }
+      // Else multiple winning words of shortest length
       else{
-        wordToReturn["word"] = "DOG";
+        wordToReturn["word"] = winningWordsOfShortestLength[0];
         wordToReturn["score"] = highestScore;
       }
 
@@ -151,6 +166,6 @@ const Adagrams = {
   }
 }
 // Do not remove this line or your tests will break!
-// export default Adagrams;
-const test = ['aaa','ddd', 'bbb', 'aaaaaaaaaa', 'zxz'];
-console.log(Adagrams.highestScoreFrom(test));
+export default Adagrams;
+// const test = ['aaa','ddd', 'bbb', 'aaaaaaaaaa', 'zxz'];
+// console.log(Adagrams.highestScoreFrom(test));
